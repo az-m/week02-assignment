@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+}
+
+.thumbnail-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.thumbnail-container {
+  grid-column-start: 2;
+  display: flex;
+  height: 120px;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.thumbnail-container img {
+  height: 110px;
+}
+
+.thumbnail-container img:hover {
+  border: 3px solid yellow;
+}
+
+.active {
+  border: 3px solid yellow;
+}
+
+.fullsize-container img {
+  max-width: 100%;
+  object-fit: cover;
+}
