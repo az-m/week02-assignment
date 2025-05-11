@@ -28,8 +28,8 @@ const arrImages = [
   {
     src: "./assets/images/Shuten_Dooji.png",
     thumb: "./assets/thumbs/Shuten_Dooji_thumb.png",
-    title: "Shuten_Dooji",
-    alt: "An image of Shuten_Dooji, the wine-drinking demon yokai.",
+    title: "Shuten Dooji",
+    alt: "An image of Shuten Dooji, the wine-drinking demon yokai.",
   },
   {
     src: "./assets/images/Tamamo-no-Mae.png",
@@ -46,22 +46,36 @@ const arrImages = [
   {
     src: "./assets/images/Yuki_Onna.png",
     thumb: "./assets/thumbs/Yuki_Onna_thumb.png",
-    title: "Yuki_Onna",
-    alt: "An image of a Yuki_Onna, a snow-woman yokai.",
+    title: "Yuki Onna",
+    alt: "An image of a Yuki Onna, a snow-woman yokai.",
   },
 ];
 
 // actions
 
 createThumbnails();
+createInitialImage();
 addListeners();
 
 // functions
 
+// we need the first image showing on load before the user selects another one so let's do that
+
+function createInitialImage() {
+  document.getElementById(
+    "fullsize-container"
+  ).innerHTML = `<img src="${arrImages[0].src}" alt="${arrImages[0].alt}" />`;
+  document.getElementById(
+    "image-title"
+  ).innerHTML = `<h1>${arrImages[0].title}</h1>`;
+}
+
+// create the thumbnails and highlight the first image thumb because that's the one we're displaying on load
+
 function createThumbnails() {
-  arrImages.forEach(function (image) {
+  arrImages.forEach(function (image, index) {
     let thumbHTML = "";
-    if (image.title == "Gashadokuro") {
+    if (index == 0) {
       thumbHTML = `<img src="${image.thumb}" id="${image.title}" alt="${image.alt}" class="active" />`;
     } else {
       thumbHTML = `<img src="${image.thumb}" id="${image.title}" alt="${image.alt}" />`;
@@ -69,6 +83,8 @@ function createThumbnails() {
     document.getElementById("thumbnail-container").innerHTML += thumbHTML;
   });
 }
+
+// now we've attached the thumbnails to the DOM, add the event listeners to them and the handler function
 
 function addListeners() {
   arrImages.forEach(function (image) {
@@ -78,6 +94,9 @@ function addListeners() {
       document.getElementById(
         "fullsize-container"
       ).innerHTML = `<img src="${image.src}" alt="${image.alt}" />`;
+      document.getElementById(
+        "image-title"
+      ).innerHTML = `<h1>${image.title}</h1>`;
       // take the highlight off the current active thumbnail
       document.getElementsByClassName("active")[0].removeAttribute("class");
       // and add it to the selected thumbnail
